@@ -6,14 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a662cff1-ba77-43f8-b9b8-fa57070d58f1" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/../IconoInstagram/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/dam/simondice/DatosSingleton.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/dam/simondice/IU.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/dam/simondice/MyViewModel.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../botonAleatorio/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../mvvm/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../mvvm/app/src/main/res/drawable/giu2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../IconoInstagram/app/src/main/java/com/dam/iconoinstagram/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../IconoInstagram/app/src/main/java/com/dam/iconoinstagram/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../LaPrimera" beforeDir="false" afterPath="$PROJECT_DIR$/../LaPrimera" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../mvvm/app/src/main/java/com/dam/mvvm/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mvvm/app/src/main/java/com/dam/mvvm/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../mvvm/app/src/main/java/com/dam/mvvm/ui/theme/MyViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mvvm/app/src/main/java/com/dam/mvvm/ui/theme/MyViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../mvvm/app/src/main/java/com/dam/mvvm/ui/theme/UI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mvvm/app/src/main/java/com/dam/mvvm/ui/theme/UI.kt" afterDir="false" />
@@ -39,7 +37,12 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -144,5 +147,16 @@
       <updated>1699520226539</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
