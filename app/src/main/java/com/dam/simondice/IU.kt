@@ -3,6 +3,7 @@ package com.dam.simondice
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,75 +22,83 @@ import com.dam.simondice.ui.theme.SimonDiceTheme
 /**
  * Interfaz de usuario
  */
-class IU (miViewModel: MyViewModel){
-    var myViewModel = miViewModel
+class IU (miViewModel: MyViewModel) {
+
     @Composable
-    fun simon(myViewModel: MyViewModel){
-        columnaAgregar("izquierda", myViewModel)
-        columnaAgregar("derecha", myViewModel)
-    }
-    @Composable
-    fun columnaAgregar(cualColumnaAgregar :String, miViewModel: MyViewModel){
-        if (cualColumnaAgregar.equals("izquierda")){
-            Column {
-                botonColor("rojo")
-                botonColor("verde")
-                botonStartYRestar()
-            }
-        }
-        if (cualColumnaAgregar.equals("derecha")){
-            Column {
-                Column {
-                    Text(text = "Ronda")
-                    Text("${miViewModel.getRonda()}")
-                }
-                botonColor("amarillo")
-                botonColor("azul")
-                botonEnviar()
-            }
+    fun simon(miViewModel: MyViewModel) {
+        Row {
+            columnaAgregar("izquierda", miViewModel)
+            columnaAgregar("derecha", miViewModel)
         }
     }
+
     @Composable
-    fun botonColor(colorCual : String){
-        if (colorCual.equals("rojo") ){
-            Button(onClick = {//incrementa la ronda
-                // ronda++
-            },
-                modifier = Modifier
-                    .height(100.dp)
-                    .width(175.dp)
-                    .padding(40.dp, 0.dp),
-                colors = ButtonDefaults.buttonColors()) { Color.Red }
+    fun columnaAgregar(cualColumnaAgregar: String, miViewModel: MyViewModel) {
+        if (cualColumnaAgregar.equals("izquierda")) {
+            Column {
+                botonColor("rojo", miViewModel)
+                botonColor("verde", miViewModel)
+                botonStartYRestar(miViewModel)
+            }
         }
-        if (colorCual.equals("verde") ){
-            Button(onClick = {//incrementa la ronda
-                // ronda++
-            },
-                modifier = Modifier
-                    .height(100.dp)
-                    .width(175.dp)
-                    .padding(40.dp, 0.dp),
-                colors = ButtonDefaults.buttonColors()) { Color.Green }
+        if (cualColumnaAgregar.equals("derecha")) {
+            Column {
+                textoRonda(miViewModel)
+                botonColor("amarillo", miViewModel)
+                botonColor("azul", miViewModel)
+                botonEnviar(miViewModel)
+            }
         }
-        if (colorCual.equals("amarillo") ){
-            Button(onClick = {//incrementa la ronda
-                // ronda++
-            },
+    }
+
+    @Composable
+    fun botonColor(colorCual: String, miViewModel: MyViewModel) {
+        if (colorCual.equals("rojo")) {
+            Button(
+                onClick = {
+                          // Incrementar la secuenncia de colores del usuario
+                            miViewModel.aumentarSecuenciaUsuario(Color.Red.toArgb())
+                },
                 modifier = Modifier
                     .height(100.dp)
                     .width(175.dp)
                     .padding(40.dp, 0.dp),
-                colors = ButtonDefaults.buttonColors()) { Color.Yellow }
+                colors = ButtonDefaults.buttonColors(Color.Red)){ Color.Red }
         }
-        if (colorCual.equals("azul") ){
-            Button(onClick = {//incrementa la ronda
-                // ronda++
-            },
+        if (colorCual.equals("verde")) {
+            Button(
+                onClick = {
+                    // Incrementar la secuenncia de colores del usuario
+                    miViewModel.aumentarSecuenciaUsuario(Color.Green.toArgb())
+                },
                 modifier = Modifier
                     .height(100.dp)
                     .width(175.dp)
                     .padding(40.dp, 0.dp),
-                colors = ButtonDefaults.buttonColors()) { Color.Blue }
+                colors = ButtonDefaults.buttonColors(Color.Green)){ Color.Green}
+        }
+        if (colorCual.equals("amarillo")) {
+            Button(
+                onClick = {
+                    // Incrementar la secuenncia de colores del usuario
+                          miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
+                    },
+                modifier = Modifier
+                    .height(100.dp)
+                    .width(175.dp)
+                    .padding(40.dp, 0.dp),
+                colors = ButtonDefaults.buttonColors(Color.Yellow)){ Color.Yellow }
+        }
+        if (colorCual.equals("azul")) {
+            Button(
+                onClick = {//incrementa la ronda
+                    // ronda++
+                },
+                modifier = Modifier
+                    .height(100.dp)
+                    .width(175.dp)
+                    .padding(40.dp, 0.dp),
+                    colors = ButtonDefaults.buttonColors(Color.Blue)) { Color.Blue }
         }
     }
 
@@ -96,15 +106,19 @@ class IU (miViewModel: MyViewModel){
      * Boton que se usa para empezar el juego y para reiniciarlo
      */
     @Composable
-    fun botonStartYRestar(){
+    fun botonStartYRestar(myViewModel: MyViewModel) {
         // Al darle al boton start hay que cambiarle el texto
         Button(
             onClick = {
-                Log.d("Apretado", "${myViewModel.aumentarRonda()}")
+                if (myViewModel.getRonda()!=0){
+                    myViewModel.reiniciarRonda()
+                    Log.d("Apretado", "Reiniciado")
+                }
+                myViewModel.aumentarRonda()
 
-                      },
+            },
             modifier = Modifier
-                .height(30.dp)
+                .height(35.dp)
                 .width((300 / 2).dp)
                 .padding(horizontal = 30.dp, vertical = 0.dp),
             colors = ButtonDefaults.buttonColors(Color.Black)
@@ -112,11 +126,16 @@ class IU (miViewModel: MyViewModel){
             Text(text = "Start")
         }
     }
+
     @Composable
-    fun botonEnviar(){
+    fun botonEnviar(miViewModel: MyViewModel) {
         Button(
             onClick = {
-                Log.d("Apretado", "${myViewModel.aumentarRonda()}")
+                miViewModel.aumentarRonda()
+                // aumentar el valor de la ronda donde se muestra
+
+                Log.d("Apretado", "enviar, aumentar la ronda ${miViewModel.getRonda()}")
+
             },
             modifier = Modifier
                 .height(30.dp)
@@ -129,5 +148,12 @@ class IU (miViewModel: MyViewModel){
                 contentDescription = "Icono2"
             )
         }
+    }
+    /**
+     * Texto que se usa para mostrar la ronda actual
+     */
+    @Composable
+    fun textoRonda(miViewModel: MyViewModel) {
+        Text(text = "Ronda: ${miViewModel.getRonda()}")
     }
 }

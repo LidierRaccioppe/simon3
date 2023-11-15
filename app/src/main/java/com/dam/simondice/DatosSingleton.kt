@@ -24,7 +24,7 @@ enum class Estado {
 /**
  * Color que se va a usar en el juego
  */
-enum class Color {
+enum class Color () {
     ROJO,
     VERDE,
     AZUL,

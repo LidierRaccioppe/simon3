@@ -26,7 +26,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    "Simon Dice"
+                    // Creo un objeto de la clase IU para usar el metodo simon
+                    var myViewModel = MyViewModel()
+                    val miIU = IU(myViewModel)
+                    miIU.simon(myViewModel)
                 }
             }
         }

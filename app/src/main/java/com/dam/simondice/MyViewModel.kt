@@ -26,7 +26,7 @@ class MyViewModel {
     }
 
     /**
-     * Aumenta la ronda en la que estamos
+     * Aumenta la ronda en la que estamos en 1
      */
     fun aumentarRonda() {
         DatosSingleton.ronda++
