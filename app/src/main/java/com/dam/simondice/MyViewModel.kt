@@ -29,14 +29,14 @@ class MyViewModel {
      * Aumenta la ronda en la que estamos en 1
      */
     fun aumentarRonda() {
-        DatosSingleton.ronda++
+        DatosSingleton.ronda.value++
     }
 
     /**
      * Reinicia la ronda en la que estamos
      */
     fun reiniciarRonda() {
-        DatosSingleton.ronda = 0
+        DatosSingleton.ronda.value = 0
     }
     /**
      * Añade un color a la secuencia
@@ -116,19 +116,19 @@ class MyViewModel {
      * @return Boolean que indica si el record se ha superado
      */
     fun comprobarRecord(): Boolean {
-        return DatosSingleton.ronda > DatosSingleton.record
+        return DatosSingleton.ronda.value > DatosSingleton.record
     }
     /**
      * Actualiza el record
      */
     fun actualizarRecord() {
-        DatosSingleton.record = DatosSingleton.ronda
+        DatosSingleton.record = DatosSingleton.ronda.value
     }
     /**
      * Devuelve la ronda actual
      */
     fun getRonda(): Int {
-        return DatosSingleton.ronda
+        return DatosSingleton.ronda.value
     }
 
 

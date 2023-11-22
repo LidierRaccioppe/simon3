@@ -53,11 +53,14 @@ class IU (miViewModel: MyViewModel) {
 
     @Composable
     fun botonColor(colorCual: String, miViewModel: MyViewModel) {
+        var strApretado = "boton apretado"
         if (colorCual.equals("rojo")) {
             Button(
                 onClick = {
-                          // Incrementar la secuenncia de colores del usuario
-                            miViewModel.aumentarSecuenciaUsuario(Color.Red.toArgb())
+                    // Incrementar la secuenncia de colores del usuario
+                    miViewModel.aumentarSecuenciaUsuario(Color.Red.toArgb())
+                    // Hacer registro de que se ha apretado el boton
+                    Log.d(strApretado, "boton apretado : rojo")
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -70,6 +73,8 @@ class IU (miViewModel: MyViewModel) {
                 onClick = {
                     // Incrementar la secuenncia de colores del usuario
                     miViewModel.aumentarSecuenciaUsuario(Color.Green.toArgb())
+                    // Hacer registro de que se ha apretado el boton
+                    Log.d(strApretado, "boton apretado : verde")
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -81,7 +86,9 @@ class IU (miViewModel: MyViewModel) {
             Button(
                 onClick = {
                     // Incrementar la secuenncia de colores del usuario
-                          miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
+                    miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
+                    // Hacer registro de que se ha apretado el boton
+                    Log.d(strApretado, "boton apretado : amarillo")
                     },
                 modifier = Modifier
                     .height(100.dp)
@@ -91,8 +98,11 @@ class IU (miViewModel: MyViewModel) {
         }
         if (colorCual.equals("azul")) {
             Button(
-                onClick = {//incrementa la ronda
-                    // ronda++
+                onClick = {
+                    // Incrementar la secuenncia de colores del usuario
+                    miViewModel.aumentarSecuenciaUsuario(Color.Blue.toArgb())
+                    // Hacer registro de que se ha apretado el boton
+                    Log.d(strApretado, "boton apretado : azul")
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -114,16 +124,22 @@ class IU (miViewModel: MyViewModel) {
                     myViewModel.reiniciarRonda()
                     Log.d("Apretado", "Reiniciado")
                 }
-                myViewModel.aumentarRonda()
+                else{
+                    Log.d("Apretado", "Start")
+                }
 
             },
             modifier = Modifier
                 .height(35.dp)
-                .width((300 / 2).dp)
+                .width((350 / 2).dp)
                 .padding(horizontal = 30.dp, vertical = 0.dp),
             colors = ButtonDefaults.buttonColors(Color.Black)
         ) {
-            Text(text = "Start")
+            if(myViewModel.getRonda()==0){
+                Text(text = "Start")
+            }else{
+                Text(text = "Restart")
+            }
         }
     }
 

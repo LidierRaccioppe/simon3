@@ -1,5 +1,7 @@
 package com.dam.simondice
 
+import androidx.compose.runtime.mutableStateOf
+
 /**
  * Clase que contiene los datos que se van a usar en el juego
  * @property ronda Int que indica la ronda en la que estamos
@@ -9,7 +11,8 @@ package com.dam.simondice
  * @property estado Enum que indica el estado del juego
  */
 object DatosSingleton {
-    var ronda = 0
+    // la variable ronda debe de ser un int que reaccione a los cambios que se le hagan en la UI
+    var ronda = mutableStateOf<Int>(0)
     var secuencia = mutableListOf<Int>()
     var secuenciaUsuario = mutableListOf<Int>()
     var record = 0
