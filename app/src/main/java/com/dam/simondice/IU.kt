@@ -60,7 +60,7 @@ class IU (miViewModel: MyViewModel) {
                     // Incrementar la secuenncia de colores del usuario
                     miViewModel.aumentarSecuenciaUsuario(Color.Red.toArgb())
                     // Hacer registro de que se ha apretado el boton
-                    Log.d(strApretado, "boton apretado : rojo")
+                    Log.d(DatosSingleton.tag, "boton apretado : rojo")
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -74,7 +74,7 @@ class IU (miViewModel: MyViewModel) {
                     // Incrementar la secuenncia de colores del usuario
                     miViewModel.aumentarSecuenciaUsuario(Color.Green.toArgb())
                     // Hacer registro de que se ha apretado el boton
-                    Log.d(strApretado, "boton apretado : verde")
+                    Log.d(DatosSingleton.tag, "boton apretado : verde")
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -85,10 +85,11 @@ class IU (miViewModel: MyViewModel) {
         if (colorCual.equals("amarillo")) {
             Button(
                 onClick = {
+                    botonApretado(Color.Yellow.toArgb(), colorCual, miViewModel)
                     // Incrementar la secuenncia de colores del usuario
-                    miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
+                    //miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
                     // Hacer registro de que se ha apretado el boton
-                    Log.d(strApretado, "boton apretado : amarillo")
+                    Log.d(DatosSingleton.tag, "boton apretado : amarillo")
                     },
                 modifier = Modifier
                     .height(100.dp)
@@ -102,7 +103,7 @@ class IU (miViewModel: MyViewModel) {
                     // Incrementar la secuenncia de colores del usuario
                     miViewModel.aumentarSecuenciaUsuario(Color.Blue.toArgb())
                     // Hacer registro de que se ha apretado el boton
-                    Log.d(strApretado, "boton apretado : azul")
+                    Log.d(DatosSingleton.tag, "boton apretado : azul")
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -122,10 +123,17 @@ class IU (miViewModel: MyViewModel) {
             onClick = {
                 if (myViewModel.getRonda()!=0){
                     myViewModel.reiniciarRonda()
-                    Log.d("Apretado", "Reiniciado")
+                    myViewModel.reiniciarSecuencia()
+                    Log.d(DatosSingleton.tag, "Reiniciado")
                 }
                 else{
-                    Log.d("Apretado", "Start")
+                    Log.d(DatosSingleton.tag, "Start")
+                    // preguntar al profesor de  clase que es los que hace lazy {  }
+                    // Al comenzar la primera ronda hay que aumentar la secuencia de la maquina
+                    myViewModel.aumentarSecuencia()
+                    // Debe ahora de mostarse la secuencia de la maquina
+                    // inecesario por hacer que  aumentar secuencia tambien muestre la secuencia    myViewModel.mostrarSecuencia()
+
                 }
 
             },
@@ -139,6 +147,7 @@ class IU (miViewModel: MyViewModel) {
                 Text(text = "Start")
             }else{
                 Text(text = "Restart")
+
             }
         }
     }
@@ -147,10 +156,14 @@ class IU (miViewModel: MyViewModel) {
     fun botonEnviar(miViewModel: MyViewModel) {
         Button(
             onClick = {
-                miViewModel.aumentarRonda()
                 // aumentar el valor de la ronda donde se muestra
+                miViewModel.aumentarRonda()
+                // ahora se debe de aumentar la secuencia de la maquina
+                miViewModel.aumentarSecuencia()
+                // ahora se debe de obtener la secuencia de la maquina y con eso obtener el ultimo valor de la lista para compararlos con la lista de colores y mostrar el color adecuado en la secuencia
 
-                Log.d("Apretado", "enviar, aumentar la ronda ${miViewModel.getRonda()}")
+                mostrarSecuenciaVisual((miViewModel.getSecuencia()[miViewModel.getSecuenciaColores().last()] ))
+                Log.d(DatosSingleton.tag, "enviar, aumentar la ronda ${miViewModel.getRonda()}")
 
             },
             modifier = Modifier
@@ -171,5 +184,33 @@ class IU (miViewModel: MyViewModel) {
     @Composable
     fun textoRonda(miViewModel: MyViewModel) {
         Text(text = "Ronda: ${miViewModel.getRonda()}")
+    }
+    /**
+     * Metodo que junta los metodos que deberian de usarse en los onClick de los botones
+     * @param color Int que indica el color que se va a añadir a la secuencia
+     * @param colorCual String que indica el color del boton que se ha apretado
+     * @param miViewModel MyViewModel que se usa para llamar a los metodos de la clase MyViewModel
+     */
+    fun botonApretado(color: Int, colorCual: String, miViewModel: MyViewModel) {
+        // Incrementar la secuenncia de colores del usuario
+        miViewModel.aumentarSecuenciaUsuario(color)
+        // Hacer registro de que se ha apretado el boton
+        Log.d(DatosSingleton.tag, "boton apretado : $colorCual")
+    }
+    /**
+     * Metodo que se usa para mostrar la secuencia de colores
+     * @param color Int que indica el color que se va a mostrar
+     */
+    fun mostrarSecuenciaVisual(color: Int) {
+        // Registro del color recibido
+        Log.d(DatosSingleton.tag, "mostrarSecuenciaVisual : $color")
+
+        // Cambiar el color del boton apretado por uno ligeramente mas claro
+        botonApretado(color, "color", MyViewModel())
+        // Esperar un segundo
+        lazy { Thread.sleep(1000) }
+        // Cambiar el color del boton apretado por el original
+        botonApretado(color, "color", MyViewModel())
+
     }
 }

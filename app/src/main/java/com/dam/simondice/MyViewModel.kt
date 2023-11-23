@@ -1,5 +1,7 @@
 package com.dam.simondice
 
+import android.util.Log
+
 /**
  * ViewModel del Juego
  */
@@ -50,10 +52,10 @@ class MyViewModel {
      * muestra al usuario la secuencia de colores
      */
     fun aumentarSecuencia() {
-        anadirColorSecuencia(generarNumeroAleatorio(4))
-        mostrarSecuencia()
-        val color = generarNumeroAleatorio(4)
         DatosSingleton.estado = Estado.SECUENCIA
+        // Se le añade con el metodo add el color que se genera aleatoriamente usando el tamaño de la lista de colores como limite superior
+        anadirColorSecuencia(generarNumeroAleatorio(Color.values().size - 1))
+        getSecuencia()
     }
     /**
      * Aumentar la secuencia de colores del usuario
@@ -70,12 +72,34 @@ class MyViewModel {
         DatosSingleton.estado = Estado.COMPROBANDO
         aumentarRonda()
         return DatosSingleton.secuencia == DatosSingleton.secuenciaUsuario
-    }// TODO recordar añadir el metodo para el estado finalizado
+    }
+    /**
+     * Muestra la secuencia de colores del usuario
+     */
+    fun getSecuenciaUsuario() : MutableList<Int> {
+        DatosSingleton.estado = Estado.USUARIO
+        Log.d(DatosSingleton.tag, "Usuario : " + DatosSingleton.secuenciaUsuario.toString())
+        return DatosSingleton.secuenciaUsuario
+    }
+    /**
+     * Getter de la secuencia de colores
+     */
+    fun getSecuenciaColores() : MutableList<Int> {
+        return DatosSingleton.secuencia
+    }
+    /**
+     * Getter de la secuencia de colores del usuario
+     */
+    fun getSecuenciaColoresUsuario() : MutableList<Int> {
+        return DatosSingleton.secuenciaUsuario
+    }
     /**
      * Muestra la secuencia de colores
      */
-    fun mostrarSecuencia() {
+    fun getSecuencia() : MutableList<Int> {
         DatosSingleton.estado = Estado.SECUENCIA
+        Log.d(DatosSingleton.tag, "Maquina : "+DatosSingleton.secuencia.toString())
+        return DatosSingleton.secuencia
     }
     /**
      * Reinicia la secuencia

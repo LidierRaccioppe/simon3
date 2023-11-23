@@ -17,6 +17,7 @@ object DatosSingleton {
     var secuenciaUsuario = mutableListOf<Int>()
     var record = 0
     var estado = Estado.INICIO
+    val tag = "DijoSimon"
 }
 /**
  * Enum que indica el estado del juego
