@@ -51,11 +51,11 @@ class MyViewModel {
      * Aumenta la secuencia de colores
      * muestra al usuario la secuencia de colores
      */
-    fun aumentarSecuencia() {
+    fun aumentarSecuenciaMaquina() {
         DatosSingleton.estado = Estado.SECUENCIA
         // Se le añade con el metodo add el color que se genera aleatoriamente usando el tamaño de la lista de colores como limite superior
         anadirColorSecuencia(generarNumeroAleatorio(Color.values().size - 1))
-        getSecuencia()
+        getSecuenciaMaquina()
     }
     /**
      * Aumentar la secuencia de colores del usuario
@@ -63,6 +63,13 @@ class MyViewModel {
     fun aumentarSecuenciaUsuario(color : Int) {
         DatosSingleton.estado = Estado.ENTRADA
         DatosSingleton.secuenciaUsuario.add(color)
+        getSecuenciaUsuario()
+    }
+    /**
+     * Obtiene el ultimo elemento de la secuencia del usuario
+     */
+    fun getUltimoElementoSecuenciaUsuario(): Int {
+        return DatosSingleton.secuenciaUsuario.last()
     }
     /**
      * Comprueba si la secuencia del usuario es correcta
@@ -70,7 +77,6 @@ class MyViewModel {
      */
     fun comprobarSecuenciaUsuario(): Boolean {
         DatosSingleton.estado = Estado.COMPROBANDO
-        aumentarRonda()
         return DatosSingleton.secuencia == DatosSingleton.secuenciaUsuario
     }
     /**
@@ -94,12 +100,20 @@ class MyViewModel {
         return DatosSingleton.secuenciaUsuario
     }
     /**
-     * Muestra la secuencia de colores
+     * Muestra la secuencia de colores y hace un log.d de la secuencia
      */
-    fun getSecuencia() : MutableList<Int> {
+    fun getSecuenciaMaquina() : MutableList<Int> {
         DatosSingleton.estado = Estado.SECUENCIA
         Log.d(DatosSingleton.tag, "Maquina : "+DatosSingleton.secuencia.toString())
         return DatosSingleton.secuencia
+    }
+    /**
+     * Muestra la secuencia de colores del usuario y hace un log.d de la secuencia
+     */
+    fun mostrarSecuenciaUsuario() : MutableList<Int> {
+        DatosSingleton.estado = Estado.USUARIO
+        Log.d(DatosSingleton.tag, "Usuario : " + DatosSingleton.secuenciaUsuario.toString())
+        return DatosSingleton.secuenciaUsuario
     }
     /**
      * Reinicia la secuencia
@@ -124,6 +138,13 @@ class MyViewModel {
      */
     fun reiniciarRecord() {
         DatosSingleton.record = 0
+    }
+    /**
+     * Obtiene el ultimo elemento de la secuencia de la maquina
+     * @return Int que indica el ultimo elemento de la secuencia de la maquina
+     */
+    fun getUltimoElementoSecuenciaMaquina(): Int {
+        return DatosSingleton.secuencia.last()
     }
     /**
      * Reinicia el juego

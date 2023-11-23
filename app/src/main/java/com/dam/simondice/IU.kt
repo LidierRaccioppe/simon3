@@ -15,9 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dam.simondice.ui.theme.SimonDiceTheme
 
 /**
  * Interfaz de usuario
@@ -130,7 +128,7 @@ class IU (miViewModel: MyViewModel) {
                     Log.d(DatosSingleton.tag, "Start")
                     // preguntar al profesor de  clase que es los que hace lazy {  }
                     // Al comenzar la primera ronda hay que aumentar la secuencia de la maquina
-                    myViewModel.aumentarSecuencia()
+                    myViewModel.aumentarSecuenciaMaquina()
                     // Debe ahora de mostarse la secuencia de la maquina
                     // inecesario por hacer que  aumentar secuencia tambien muestre la secuencia    myViewModel.mostrarSecuencia()
 
@@ -159,10 +157,14 @@ class IU (miViewModel: MyViewModel) {
                 // aumentar el valor de la ronda donde se muestra
                 miViewModel.aumentarRonda()
                 // ahora se debe de aumentar la secuencia de la maquina
-                miViewModel.aumentarSecuencia()
-                // ahora se debe de obtener la secuencia de la maquina y con eso obtener el ultimo valor de la lista para compararlos con la lista de colores y mostrar el color adecuado en la secuencia
+                miViewModel.aumentarSecuenciaMaquina()
+                // Se u
 
-                mostrarSecuenciaVisual((miViewModel.getSecuencia()[miViewModel.getSecuenciaColores().last()] ))
+                // ahora se debe de obtener la secuencia de la maquina y con eso obtener el ultimo valor de la lista para compararlos con la lista de colores y mostrar el color adecuado en la secuencia
+                //mostrarSecuenciaVisual((miViewModel.getSecuencia()[miViewModel.getSecuenciaColores().last()] ))
+                mostrarSecuenciaVisual(miViewModel.getUltimoElementoSecuenciaMaquina())
+
+                // Hacer registro de que se ha apretado el boton
                 Log.d(DatosSingleton.tag, "enviar, aumentar la ronda ${miViewModel.getRonda()}")
 
             },
@@ -209,8 +211,8 @@ class IU (miViewModel: MyViewModel) {
         botonApretado(color, "color", MyViewModel())
         // Esperar un segundo
         lazy { Thread.sleep(1000) }
-        // Cambiar el color del boton apretado por el original
-        botonApretado(color, "color", MyViewModel())
+        // TODO Cambiar el color del boton apretado por el original
+
 
     }
 }
