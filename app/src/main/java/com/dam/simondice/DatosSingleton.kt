@@ -1,6 +1,8 @@
 package com.dam.simondice
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 
 /**
  * Clase que contiene los datos que se van a usar en el juego
@@ -28,9 +30,9 @@ enum class Estado {
 /**
  * Color que se va a usar en el juego
  */
-enum class Color () {
-    ROJO,
-    VERDE,
-    AZUL,
-    AMARILLO
+enum class Colores (color: MutableState<Color>) {
+    ROJO(color= Color.Red),
+    VERDE(color = Color.Green),
+    AZUL(color = Color.Blue),
+    AMARILLO(color= Color.Yellow)
 }

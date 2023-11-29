@@ -1,11 +1,12 @@
 package com.dam.simondice
 
 import android.util.Log
+import androidx.lifecycle.ViewModel
 
 /**
  * ViewModel del Juego
  */
-class MyViewModel {
+class MyViewModel : ViewModel(){
     /**
      * Inicializo el juego
      */
@@ -175,6 +176,17 @@ class MyViewModel {
     fun getRonda(): Int {
         return DatosSingleton.ronda.value
     }
-
-
+    /**
+     * Comprueba si la secuencia del usuario es correcta
+     */
+    fun comprobarSecuencia(): Boolean {
+        return DatosSingleton.secuencia == DatosSingleton.secuenciaUsuario
+    }
+    /**
+     * Lanza una corrutina que espera 1 segundo
+     */
+    suspend fun esperar() {
+        DatosSingleton.estado = Estado.ESPERANDO
+        Thread.sleep(1000)
+    }
 }
