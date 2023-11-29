@@ -31,8 +31,8 @@ enum class Estado {
  * Color que se va a usar en el juego
  */
 enum class Colores (color: MutableState<Color>) {
-    ROJO(color= Color.Red),
-    VERDE(color = Color.Green),
-    AZUL(color = Color.Blue),
-    AMARILLO(color= Color.Yellow)
+    ROJO(mutableStateOf(Color.Red)),
+    VERDE(mutableStateOf(Color.Green)),
+    AZUL(mutableStateOf(Color.Blue)),
+    AMARILLO(mutableStateOf(Color.Yellow))
 }

@@ -1,5 +1,6 @@
 package com.dam.simondice
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -263,11 +264,12 @@ class IU (miViewModel: MyViewModel) {
      * @param colorCual String que indica el color del boton que se ha apretado
      * @param miViewModel MyViewModel que se usa para llamar a los metodos de la clase MyViewModel
      */
-
+    @SuppressLint("CoroutineCreationDuringComposition")
+    @Composable
     fun cambiarColorBoton(color: Int, colorCual: String, miViewModel: MyViewModel){
         // Cambiar el color del boton apretado por uno ligeramente mas claro
         // hacer esto en una corutina
-
+        val iu_scope = rememberCoroutineScope()
         iu_scope.launch {
                     delay(1000)
                     // TODO Cambiar el color del boton apretado por el original
