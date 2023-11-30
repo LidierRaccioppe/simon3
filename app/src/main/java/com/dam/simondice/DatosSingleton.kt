@@ -20,19 +20,33 @@ object DatosSingleton {
     var record = 0
     var estado = Estado.INICIO
     val tag = "DijoSimon"
+    var colorPath: Color= Color.White
+    var numeroDeColores=Colores.values()
+    var listaColores= listOf(
+        Colores.ROJO.color,
+        Colores.AMARILLO.color,
+        Colores.VERDE.color,
+        Colores.AZUL.color)
 }
 /**
  * Enum que indica el estado del juego
  */
+
 enum class Estado {
     INICIO, SECUENCIA, USUARIO, ESPERANDO, ENTRADA, COMPROBANDO, FINALIZADO
 }
 /**
  * Color que se va a usar en el juego
  */
-enum class Colores (color: MutableState<Color>) {
+enum class Colores (var color: MutableState<Color>) {
     ROJO(mutableStateOf(Color.Red)),
+    AMARILLO(mutableStateOf(Color.Yellow)),
     VERDE(mutableStateOf(Color.Green)),
-    AZUL(mutableStateOf(Color.Blue)),
-    AMARILLO(mutableStateOf(Color.Yellow))
+    AZUL(mutableStateOf(Color.Blue));
+
+    // Metodo para oscurecer el color
+    fun darken() {
+        color.value = color.value.copy(alpha = 0.8f)
+    }
 }
+

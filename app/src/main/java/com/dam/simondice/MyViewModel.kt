@@ -1,16 +1,20 @@
 package com.dam.simondice
 
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.util.Log
+import android.widget.Button
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 /**
  * ViewModel del Juego
  */
 class MyViewModel : ViewModel(){
-    /**
-     * Inicializo el juego
-     */
-
     /**
      * Función que genera un número aleatorio entre 0 y el numeroLimiteSuperior
      * @param numeroLimiteSuperior Int que indica el límite superior del número aleatorio
@@ -55,7 +59,7 @@ class MyViewModel : ViewModel(){
     fun aumentarSecuenciaMaquina() {
         DatosSingleton.estado = Estado.SECUENCIA
         // Se le añade con el metodo add el color que se genera aleatoriamente usando el tamaño de la lista de colores como limite superior
-        anadirColorSecuencia(generarNumeroAleatorio(Color.values().size - 1))
+        anadirColorSecuencia(generarNumeroAleatorio(Colores.values().size - 1))
         getSecuenciaMaquina()
     }
     /**
@@ -182,11 +186,31 @@ class MyViewModel : ViewModel(){
     fun comprobarSecuencia(): Boolean {
         return DatosSingleton.secuencia == DatosSingleton.secuenciaUsuario
     }
+
     /**
-     * Lanza una corrutina que espera 1 segundo
+     * Oscurece el color
      */
-    suspend fun esperar() {
-        DatosSingleton.estado = Estado.ESPERANDO
-        Thread.sleep(1000)
+    fun tintinearOscurecimiento(color: Color,factor: Float): Color {
+        val r = (color.red * (1 - factor)).coerceIn(0f, 1f)
+        val g = (color.green * (1 - factor)).coerceIn(0f, 1f)
+        val b = (color.blue * (1 - factor)).coerceIn(0f, 1f)
+        return Color(r, g, b, color.alpha)
+    }
+    fun showSequence(time: Long) {
+        Log.d("DijoSimon", "Mostramos la secuencia")
+        viewModelScope.launch {
+            for (i in DatosSingleton.secuencia) {
+                Log.d("DijoSimon","Valor de la secuencia existente: ${DatosSingleton.secuencia}")
+                DatosSingleton.colorPath= DatosSingleton.listaColores[i].value
+                DatosSingleton.numeroDeColores[i].color.value= tintinearOscurecimiento(DatosSingleton.colorPath,0.5f)
+                delay(time)
+                DatosSingleton.numeroDeColores[i].color.value= DatosSingleton.colorPath
+                delay(time)
+                Log.d("DijoSimon", "Mostramos el color $i oscurecido")
+            }
+        }
+    }
+    fun showSequenceRun(time:Long) = runBlocking {
+        showSequence(time)
     }
 }

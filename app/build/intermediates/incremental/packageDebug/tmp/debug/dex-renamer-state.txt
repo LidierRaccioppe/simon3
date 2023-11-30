@@ -1,4 +1,4 @@
-#Wed Nov 29 10:04:50 CET 2023
+#Thu Nov 30 10:52:27 CET 2023
 base.0=/home/dam2/AndroidStudioProjects/simonDice2/SimonDice/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/home/dam2/AndroidStudioProjects/simonDice2/SimonDice/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
 base.2=/home/dam2/AndroidStudioProjects/simonDice2/SimonDice/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
