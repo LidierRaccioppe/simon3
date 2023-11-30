@@ -213,4 +213,23 @@ class MyViewModel : ViewModel(){
     fun showSequenceRun(time:Long) = runBlocking {
         showSequence(time)
     }
+
+    /**
+     * Increment the user sequence
+     */
+    fun tintineaUsuarioBlancoMostrar(numColor: Int) = runBlocking {
+        tintineaUsuarioBlanco(numColor)
+    }
+    fun tintineaUsuarioBlanco(color: Int) {
+        Log.d("DijoSimon","Blanqueando")
+
+        viewModelScope.launch {
+            DatosSingleton.colorPath=DatosSingleton.listaColores[color].value
+            DatosSingleton.listaColores[color].value= Color.White
+            delay(150L)
+            DatosSingleton.listaColores[color].value= DatosSingleton.colorPath
+        }
+
+        Log.d("DijoSimon", Ddawdawdawgag.state.toString())
+    }
 }

@@ -135,6 +135,8 @@ class IU (miViewModel: MyViewModel) {
                     // Reiniciar la secuencia del usuario
                     myViewModel.reiniciarSecuenciaUsuario()
                     Log.d(DatosSingleton.tag, "Reiniciado")
+
+
                 }
                 else{
                     Log.d(DatosSingleton.tag, "Start")
@@ -145,7 +147,7 @@ class IU (miViewModel: MyViewModel) {
                     // Al comenzar la primera ronda hay que aumentar la secuencia de la maquina
                     myViewModel.aumentarSecuenciaMaquina()
                     // Mostar el cambio en los colores
-                    myViewModel.showSequenceRun(1000)
+                    myViewModel.showSequenceRun(300)
 
 
 
@@ -183,7 +185,7 @@ class IU (miViewModel: MyViewModel) {
                     // ahora se debe de aumentar la secuencia de la maquina
                     miViewModel.aumentarSecuenciaMaquina()
                     // Mostar el cambio en los colores
-                    miViewModel.showSequenceRun(1000)
+                    miViewModel.showSequenceRun(300)
 
                     // Reiniciar la secuencia del usuario
                     miViewModel.reiniciarSecuenciaUsuario()
@@ -237,5 +239,17 @@ class IU (miViewModel: MyViewModel) {
         Log.d(DatosSingleton.tag, "boton apretado : $colorCual")
         // todo cambiar el color del boton apretado por uno ligeramente mas claros
 
+
     }
+    /*
+    Esta linea debe de estar fuera del botton
+    var context = LocalContext.current
+
+
+    Linea para hacer un toast en un onClick
+    Toast.makeText(context, "Hakiado", Toast.LENGTH_SHORT).show()
+
+
+
+     */
 }
