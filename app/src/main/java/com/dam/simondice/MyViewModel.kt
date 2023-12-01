@@ -226,10 +226,9 @@ class MyViewModel : ViewModel(){
         viewModelScope.launch {
             DatosSingleton.colorPath=DatosSingleton.listaColores[color].value
             DatosSingleton.listaColores[color].value= Color.White
-            delay(150L)
+            delay(75)
             DatosSingleton.listaColores[color].value= DatosSingleton.colorPath
         }
-
-        Log.d("DijoSimon", Ddawdawdawgag.state.toString())
+        Log.d("DijoSimon", "ilumando pulsado")
     }
 }

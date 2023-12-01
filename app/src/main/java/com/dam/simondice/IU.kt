@@ -69,6 +69,8 @@ class IU (miViewModel: MyViewModel) {
                     // todo Se debe de usar la clase enum Color
                     // Incrementar la secuenncia de colores del usuario
                     botonApretado(0, colorCual, miViewModel)
+                    miViewModel.tintineaUsuarioBlanco(0)
+
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -83,6 +85,7 @@ class IU (miViewModel: MyViewModel) {
                     //miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
                     // Incrementar la secuenncia de colores del usuario
                     botonApretado(1, colorCual, miViewModel)
+                    miViewModel.tintineaUsuarioBlanco(1)
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -97,6 +100,7 @@ class IU (miViewModel: MyViewModel) {
                     // miViewModel.aumentarSecuenciaUsuario(Color.Green.toArgb())
                     // Incrementar la secuenncia de colores del usuario
                     botonApretado(2, colorCual, miViewModel)
+                    miViewModel.tintineaUsuarioBlanco(2)
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -111,6 +115,7 @@ class IU (miViewModel: MyViewModel) {
                     // miViewModel.aumentarSecuenciaUsuario(Color.Blue.toArgb())
                     // Incrementar la secuenncia de colores del usuario
                     botonApretado(3, colorCual, miViewModel)
+                    miViewModel.tintineaUsuarioBlanco(3)
                 },
                 modifier = Modifier
                     .height(100.dp)
