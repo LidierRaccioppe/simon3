@@ -64,13 +64,13 @@ class IU (miViewModel: MyViewModel) {
         if (colorCual.equals("rojo")) {
             Button(
                 onClick = {
-                    // Incrementar la secuenncia de colores del usuario
-                    //miViewModel.aumentarSecuenciaUsuario(Color.Red.toArgb())
-                    // todo Se debe de usar la clase enum Color
-                    // Incrementar la secuenncia de colores del usuario
-                    botonApretado(0, colorCual, miViewModel)
-                    miViewModel.tintineaUsuarioBlanco(0)
-
+                    if (miViewModel.getEstado().equals(Estado.ENTRADA)){
+                        // Incrementar la secuenncia de colores del usuario
+                        // miViewModel.aumentarSecuenciaUsuario(Color.Red.toArgb())
+                        // Incrementar la secuenncia de colores del usuario
+                        botonApretado(0, colorCual, miViewModel)
+                        miViewModel.tintineaUsuarioBlanco(0)
+                    }
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -81,11 +81,15 @@ class IU (miViewModel: MyViewModel) {
         if (colorCual.equals("amarillo")) {
             Button(
                 onClick = {
-                    // Incrementar la secuenncia de colores del usuario
-                    //miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
-                    // Incrementar la secuenncia de colores del usuario
-                    botonApretado(1, colorCual, miViewModel)
-                    miViewModel.tintineaUsuarioBlanco(1)
+                    if (miViewModel.getEstado().equals(Estado.ENTRADA)){
+                        // Incrementar la secuenncia de colores del usuario
+                        // miViewModel.aumentarSecuenciaUsuario(Color.Yellow.toArgb())
+                        // Incrementar la secuenncia de colores del usuario
+                        botonApretado(1, colorCual, miViewModel)
+                        miViewModel.tintineaUsuarioBlanco(1)
+                        // Un Log.d para saber el estado del juego
+                        Log.d("DijoSimon", "Estado : ${miViewModel.getEstado()}")
+                    }
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -96,11 +100,13 @@ class IU (miViewModel: MyViewModel) {
         if (colorCual.equals("verde")) {
             Button(
                 onClick = {
-                    // Incrementar la secuenncia de colores del usuario
-                    // miViewModel.aumentarSecuenciaUsuario(Color.Green.toArgb())
-                    // Incrementar la secuenncia de colores del usuario
-                    botonApretado(2, colorCual, miViewModel)
-                    miViewModel.tintineaUsuarioBlanco(2)
+                    if (miViewModel.getEstado().equals(Estado.ENTRADA)){
+                        // Incrementar la secuenncia de colores del usuario
+                        // miViewModel.aumentarSecuenciaUsuario(Color.Green.toArgb())
+                        // Incrementar la secuenncia de colores del usuario
+                        botonApretado(2, colorCual, miViewModel)
+                        miViewModel.tintineaUsuarioBlanco(2)
+                    }
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -111,11 +117,13 @@ class IU (miViewModel: MyViewModel) {
         if (colorCual.equals("azul")) {
             Button(
                 onClick = {
-                    // Incrementar la secuenncia de colores del usuario
-                    // miViewModel.aumentarSecuenciaUsuario(Color.Blue.toArgb())
-                    // Incrementar la secuenncia de colores del usuario
-                    botonApretado(3, colorCual, miViewModel)
-                    miViewModel.tintineaUsuarioBlanco(3)
+                    if (miViewModel.getEstado().equals(Estado.ENTRADA)){
+                        // Incrementar la secuenncia de colores del usuario
+                        // miViewModel.aumentarSecuenciaUsuario(Color.Blue.toArgb())
+                        // Incrementar la secuenncia de colores del usuario
+                        botonApretado(3, colorCual, miViewModel)
+                        miViewModel.tintineaUsuarioBlanco(3)
+                    }
                 },
                 modifier = Modifier
                     .height(100.dp)
@@ -144,6 +152,8 @@ class IU (miViewModel: MyViewModel) {
 
                 }
                 else{
+                    // Establecer el estado del juego a INICIO para indicar que sea inicializado el juego con sus valores iniciales menos el record
+                    myViewModel.setEstado(Estado.INICIO)
                     Log.d(DatosSingleton.tag, "Start")
                     // Reiniciar la secuencia por si comenzo de antemano
                     myViewModel.reiniciarSecuencia()
@@ -152,10 +162,11 @@ class IU (miViewModel: MyViewModel) {
                     // Al comenzar la primera ronda hay que aumentar la secuencia de la maquina
                     myViewModel.aumentarSecuenciaMaquina()
                     // Mostar el cambio en los colores
-                    myViewModel.showSequenceRun(300)
-
-
-
+                    myViewModel.mostrarSecuenciaMaquina(300)
+                    // Establecer el estado del juego a ENTRADA para que puedan apretar los botones
+                    myViewModel.setEstado(Estado.ENTRADA)
+                    // Un Log.d para saber el estado del juego
+                    // da error tener cuidado en su re implementacion Log.d(DatosSingleton.tag, "Estado : ${myViewModel.getEstado()}")
                 }
 
             },
@@ -185,15 +196,20 @@ class IU (miViewModel: MyViewModel) {
             onClick = {
                 if(miViewModel.comprobarSecuencia()){
                     Log.d(DatosSingleton.tag, "Secuencia correcta")
+                    // Establecer el estado del juego a COMPROBANDO para que no puedan volver a apretar los botone
+                    miViewModel.setEstado(Estado.COMPROBANDO)
                     // aumentar el valor de la ronda donde se muestra
                     miViewModel.aumentarRonda()
                     // ahora se debe de aumentar la secuencia de la maquina
                     miViewModel.aumentarSecuenciaMaquina()
-                    // Mostar el cambio en los colores
-                    miViewModel.showSequenceRun(300)
+                    // Mostar el cambio en los colores de la secuencia de la maquina
+                    miViewModel.mostrarSecuenciaMaquinaEjecutar(300)
 
                     // Reiniciar la secuencia del usuario
                     miViewModel.reiniciarSecuenciaUsuario()
+
+                    // Establecer el estado del juego a ENTRADA para que puedan volver a apretar los botones
+                    miViewModel.setEstado(Estado.ENTRADA)
 
                     // ahora se debe de obtener la secuencia de la maquina y con eso obtener el ultimo valor de la lista para compararlos con la lista de colores y mostrar el color adecuado en la secuencia
                     //mostrarSecuenciaVisual((miViewModel.getSecuencia()[miViewModel.getSecuenciaColores().last()] ))

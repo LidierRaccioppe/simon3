@@ -1,9 +1,6 @@
 package com.dam.simondice
 
-import android.content.res.ColorStateList
-import android.graphics.PorterDuff
 import android.util.Log
-import android.widget.Button
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -88,7 +85,6 @@ class MyViewModel : ViewModel(){
      * Muestra la secuencia de colores del usuario
      */
     fun getSecuenciaUsuario() : MutableList<Int> {
-        DatosSingleton.estado = Estado.USUARIO
         Log.d(DatosSingleton.tag, "Usuario : " + DatosSingleton.secuenciaUsuario.toString())
         return DatosSingleton.secuenciaUsuario
     }
@@ -116,7 +112,6 @@ class MyViewModel : ViewModel(){
      * Muestra la secuencia de colores del usuario y hace un log.d de la secuencia
      */
     fun mostrarSecuenciaUsuario() : MutableList<Int> {
-        DatosSingleton.estado = Estado.USUARIO
         Log.d(DatosSingleton.tag, "Usuario : " + DatosSingleton.secuenciaUsuario.toString())
         return DatosSingleton.secuenciaUsuario
     }
@@ -196,22 +191,22 @@ class MyViewModel : ViewModel(){
         val b = (color.blue * (1 - factor)).coerceIn(0f, 1f)
         return Color(r, g, b, color.alpha)
     }
-    fun showSequence(time: Long) {
+    fun mostrarSecuenciaMaquina(time: Long) {
         Log.d("DijoSimon", "Mostramos la secuencia")
         viewModelScope.launch {
             for (i in DatosSingleton.secuencia) {
                 Log.d("DijoSimon","Valor de la secuencia existente: ${DatosSingleton.secuencia}")
-                DatosSingleton.colorPath= DatosSingleton.listaColores[i].value
-                DatosSingleton.numeroDeColores[i].color.value= tintinearOscurecimiento(DatosSingleton.colorPath,0.5f)
+                DatosSingleton.colorAux= DatosSingleton.listaColores[i].value
+                DatosSingleton.numeroDeColores[i].color.value= tintinearOscurecimiento(DatosSingleton.colorAux,0.5f)
                 delay(time)
-                DatosSingleton.numeroDeColores[i].color.value= DatosSingleton.colorPath
+                DatosSingleton.numeroDeColores[i].color.value= DatosSingleton.colorAux
                 delay(time)
                 Log.d("DijoSimon", "Mostramos el color $i oscurecido")
             }
         }
     }
-    fun showSequenceRun(time:Long) = runBlocking {
-        showSequence(time)
+    fun mostrarSecuenciaMaquinaEjecutar(time:Long) = runBlocking {
+        mostrarSecuenciaMaquina(time)
     }
 
     /**
@@ -224,11 +219,25 @@ class MyViewModel : ViewModel(){
         Log.d("DijoSimon","Blanqueando")
 
         viewModelScope.launch {
-            DatosSingleton.colorPath=DatosSingleton.listaColores[color].value
+            DatosSingleton.colorAux=DatosSingleton.listaColores[color].value
             DatosSingleton.listaColores[color].value= Color.White
             delay(75)
-            DatosSingleton.listaColores[color].value= DatosSingleton.colorPath
+            DatosSingleton.listaColores[color].value= DatosSingleton.colorAux
         }
         Log.d("DijoSimon", "ilumando pulsado")
+    }
+    /**
+     * Obtiene el estado del juego
+     * @return Estado que indica el estado del juego
+     */
+    fun getEstado(): Estado {
+        return DatosSingleton.estado
+    }
+    /**
+     * Establece el estado del juego
+     * @param estado Estado que indica el estado del juego
+     */
+    fun setEstado(estado: Estado) {
+        DatosSingleton.estado = estado
     }
 }

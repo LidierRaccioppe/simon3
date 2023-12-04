@@ -19,8 +19,10 @@ object DatosSingleton {
     var secuenciaUsuario = mutableListOf<Int>()
     var record = 0
     var estado = Estado.INICIO
+    // Constante que indica la etiqueta a usar para los logs
     val tag = "DijoSimon"
-    var colorPath: Color= Color.White
+    // Variable auxiliar para guardar el color que se ha pulsado
+    var colorAux: Color= Color.White
     var numeroDeColores=Colores.values()
     var listaColores= listOf(
         Colores.ROJO.color,
@@ -33,7 +35,7 @@ object DatosSingleton {
  */
 
 enum class Estado {
-    INICIO, SECUENCIA, USUARIO, ESPERANDO, ENTRADA, COMPROBANDO, FINALIZADO
+    INICIO, SECUENCIA, ENTRADA, COMPROBANDO, FINALIZADO
 }
 /**
  * Color que se va a usar en el juego
